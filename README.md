@@ -191,18 +191,11 @@ Diese Lektion behandelt Subqueries zur dynamischen Datenfilterung (skalare: ein 
 - Einstellungen für `LOAD DATA LOCAL INFILE` (`local_infile`, `secure_file_priv`)?
 - Anpassung der Spaltenreihenfolge beim Import?
 
-**Referenzen:**
-
-- Subquery Manual
-- Subquery Beispiele
-- LOAD DATA INFILE
-
 **Auftrag:**
 
 - Subselect-Aufgabe umsetzen (35 Min, Einzelarbeit).
 - CSV-Import mit `LOAD DATA LOCAL INFILE` (30 Min, Partnerarbeit): `db_adressen` erstellen, Daten in `tbl_Adr` importieren, in 3NF normalisieren (`tbl_Person`, `tbl_Str`, `tbl_Ort`), Daten übertragen, Redundanzen bereinigen, Ergebnisse mit `SELECT ... JOIN ...` prüfen.
 - Ergebnisse und Skripte im Lernportfolio ablegen.
-
 
 ---
 
@@ -240,20 +233,106 @@ Die Lektion fokussierte auf Datensicherungskonzepte (Online-/Offline-Backups, Vo
 - Fünf Schritte zur 3. Normalform?
 - Funktion von `SELECT INTO OUTFILE`?
 
-**Referenzen:**
-- [MySQL Dump](#)
-- [MariaDB Backup Tool](#)
-- [Freifächer Tipps](#)
-- [Datensicherung](#)
-
 **Auftrag:**
+
 - Datensicherung (50 Min, Team): Logisches Backup mit `mysqldump`, Analyse, Restore, physisches Backup mit Mariabackup.
 - Freifächer (4-6 Lektionen, Einzelarbeit): Excel in 1NF, log./phys. ERD (2NF), DDL-Script, Datenimport, Redundanzbereinigung, Validierung, Testdaten (290 DS), Abfragen, Export mit `SELECT INTO OUTFILE`, Backup der DB.
 - Ergebnisse und Skripte im Lernportfolio ablegen.
 
 ---
 
-## 01.07.2025
+## Lektion vom 01.07.2025
 
+**Wichtige Themen:**
 
-## 08.07.2025
+- Recap und Q&A zu Tag 7
+- Daten normalisiert einbinden (1. und 2. Normalform)
+- Erstellung logischer und physischer ER-Diagramme
+- Datenimport mit `LOAD DATA LOCAL INFILE`
+- Redundanzbereinigung und Datenvalidierung
+- Testdatengenerierung (290 Schüler-Datensätze)
+- Opendata-Analyse: Steuerdaten Stadt Zürich und Bildungsdaten BFS
+- Backup-Erstellung
+- Vorbereitung auf LB2
+
+**Kurze Zusammenfassung / Kernkonzepte:**
+
+Die Lektion begann mit einem Recap und Q&A zu Tag 7, gefolgt von der Vertiefung der Normalisierung am Beispiel der `db_freifaecher`-Datenbank. Eine Excel-Tabelle wurde in die 1. Normalform (1NF) überführt (atomare Felder, bewusste Redundanz), und ein logisches ERD mit mindestens fünf Tabellen in der 2. Normalform (2NF) inklusive Kardinalitäten wurde erstellt. Das physische ERD wurde mit Constraints (`NOT NULL`, `UNIQUE`, Fremdschlüssel) umgesetzt, und ein DDL-Script wurde via Forward Engineering generiert. Daten wurden aus CSV-Dateien mittels `LOAD DATA LOCAL INFILE` importiert, Fremdschlüssel-Beziehungen überprüft, Redundanzen bereinigt und Daten mit SELECT-Abfragen validiert. 290 Testdatensätze für Schüler wurden mit einem Testdatengenerator (Excel, Zufallszahlen durch vertikale Verschiebung) erstellt, importiert und validiert. Spezifische Abfragen (z. B. Teilnehmerzahl von Inge Sommer, Klassenliste, Freifächer "Chor" oder "Elektronik") wurden durchgeführt und mit `SELECT INTO OUTFILE` exportiert. Opendata-Quellen (Steuerdaten Stadt Zürich, Bildungsdaten BFS) wurden analysiert, normalisiert, importiert und abgefragt (z. B. Median-Einkommen, Schulbesuchsquote). Abschließend wurde ein Backup erstellt.
+
+**Wichtige Befehle/Konzepte:**
+
+- 1. Normalform: Atomare Felder, Redundanz erzeugt.
+- 2. Normalform: Teilschlüsselabhängigkeiten beseitigt.
+- Logisches ERD: Kardinalitäten (1:1, 1:n, m:n).
+- Physisches ERD: `NOT NULL`, `UNIQUE`, Fremdschlüssel-Constraints.
+- `LOAD DATA LOCAL INFILE 'file.csv' INTO TABLE ... FIELDS TERMINATED BY ',' LINES TERMINATED BY '\r\n' IGNORE 1 ROWS;`
+- Redundanzprüfung: `SELECT col, COUNT(*) FROM table GROUP BY col HAVING COUNT(*) > 1;`
+- Export: `SELECT ... INTO OUTFILE 'file.csv' FIELDS TERMINATED BY ',' LINES TERMINATED BY '\r\n';`
+- Testdatengenerierung: Zufallsdaten in Excel (z. B. vertikale Verschiebung, Suchen-Ersetzen).
+- Opendata: Normalisierung, Bulkimport, DML-Skripte, Abfragen (z. B. `_p25`, `_p50`, `_p75` für Steuerdaten).
+- Backup: `mysqldump -u root -p db_freifaecher > backup.sql`
+
+**Checkpoint-Fragen (Reflexion):**
+
+- Was ist der Unterschied zwischen 1NF und 2NF?
+- Wie definiert man Kardinalitäten im logischen ERD?
+- Welche Schritte sind beim Datenimport mit `LOAD DATA LOCAL INFILE` zu beachten?
+- Wie überprüft man die Korrektheit von Fremdschlüssel-Beziehungen?
+- Was bedeuten `_p25`, `_p50`, `_p75` in den Steuerdaten?
+- Warum ist ein Backup vor LB2 wichtig?
+
+**Auftrag:**
+
+- Freifächer (3-4 Lektionen, Einzelarbeit): Excel in 1NF, log./phys. ERD (2NF), DDL-Script, Datenimport, Redundanzbereinigung, 290 Testdatensätze, SELECT-Abfragen, Export mit `SELECT INTO OUTFILE`, Backup.
+- Opendata (2 Lektionen, Einzelarbeit): Analyse und Normalisierung von Steuerdaten oder Bildungsdaten, phys. ERD, DDL- und DML-Skripte, Bulkimport, Abfragen (z. B. maximales/niedrigstes Steuereinkommen, Schulbesuchsquote), Backup.
+- Ergebnisse und Skripte im Lernportfolio ablegen.
+
+---
+
+## Lektion vom 08.07.2025
+
+**Wichtige Themen:**
+
+- Weiterarbeit an der Praxisarbeit zur Vorbereitung auf LB2
+- Repetition der Kernkonzepte (Normalisierung, ERD, Constraints, Datenimport, Abfragen)
+- Durchführung der Leistungsbewertung LB2 (40%, 100 Minuten)
+- Backup und Dokumentation
+
+**Kurze Zusammenfassung / Kernkonzepte:**
+
+Die Lektion war der abschließende Tag vor der LB2 und konzentrierte sich auf die Praxisarbeit sowie die Repetition der Kernkonzepte: Normalisierung (1NF bis 3NF), Erstellung von logischen und physischen ERDs, Implementierung von Constraints (`NOT NULL`, `UNIQUE`, Fremdschlüssel), Datenimport mit `LOAD DATA LOCAL INFILE`, Redundanzbereinigung, Datenvalidierung und komplexe SELECT-Abfragen. Die Praxisarbeit umfasste die Weiterarbeit an der `db_freifaecher`-Datenbank oder einer Opendata-Datenbank (z. B. Steuerdaten, Bildungsdaten), inklusive Normalisierung, Import, Abfragen und Backup. Die LB2 (40%, ca. 100 Minuten) testete diese Konzepte praktisch, mit Fokus auf Datenmodellierung, SQL-Skripte und Datenanalyse. Ergebnisse und Skripte wurden dokumentiert, und ein abschließendes Backup der Datenbank wurde erstellt.
+
+**Wichtige Befehle/Konzepte:**
+
+- Normalisierung: 1NF (atomare Felder), 2NF (Teilschlüsselabhängigkeiten), 3NF (transitive Abhängigkeiten).
+- ERD: Logisches (Kardinalitäten) und physisches (Constraints) Model.
+- Constraints: `NOT NULL`, `UNIQUE`, `FOREIGN KEY ... ON DELETE ...`.
+- `LOAD DATA LOCAL INFILE 'file.csv' INTO TABLE ... FIELDS TERMINATED BY ',' LINES TERMINATED BY '\r\n' IGNORE 1 ROWS;`
+- Abfragen: `SELECT ... FROM ... JOIN ... WHERE ... GROUP BY ... HAVING ... ORDER BY ...;`
+- Export: `SELECT ... INTO OUTFILE 'file.csv' FIELDS TERMINATED BY ',' LINES TERMINATED BY '\r\n';`
+- Backup: `mysqldump -u root -p db_name > backup.sql`
+
+**Checkpoint-Fragen (Reflexion):**
+
+- Welche Schritte umfasst die Normalisierung bis 3NF?
+- Wie stellt man referenzielle Integrität mit Fremdschlüsseln sicher?
+- Welche Rolle spielt `LOAD DATA LOCAL INFILE` bei der Datenmigration?
+- Wie validiert man importierte Daten mit SELECT-Abfragen?
+- Warum ist die Dokumentation von Skripten im Lernportfolio wichtig?
+- Welche Backup-Methode wurde für die Praxisarbeit verwendet?
+
+**Referenzen:**
+
+- Subquery Manual
+- Subquery Beispiele
+- LOAD DATA INFILE
+- [MySQL Dump](https://linuxize.com/post/how-to-back-up-and-restore-mysql-databases-with-mysqldump/)
+- [MariaDB Backup Tool](https://mariadb.com/docs/server/server-usage/backup-and-restore/mariadb-backup)
+- [Opendata Stadt Zürich](https://data.stadt-zuerich.ch/)
+- [Bildungsdaten BFS](https://data.bfs.admin.ch/)
+
+**Auftrag:**
+
+- Praxisarbeit (Einzelarbeit): Weiterarbeit an `db_freifaecher` oder Opendata-Datenbank, Normalisierung, ERD, DDL/DML-Skripte, Datenimport, Abfragen, Backup.
+- LB2 (100 Minuten): Praktische Umsetzung von Datenmodellierung, SQL-Skripten und Datenanalyse.
+- Dokumentation: Ergebnisse und Skripte im Lernportfolio ablegen, Backup der Datenbank erstellen.
